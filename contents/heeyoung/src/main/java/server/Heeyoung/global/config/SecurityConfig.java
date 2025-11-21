@@ -31,12 +31,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/users/sign-in",
-//                                         "/users/sign-in/**",
-//                                         "/users/sign-up",
-//                                         "/users/reissue").permitAll()
-//                        .anyRequest().authenticated())
-                          .anyRequest().permitAll())
+                        .requestMatchers("/users/sign-in",
+                                         "/users/sign-in/**",
+                                         "/users/sign-up",
+                                         "/users/reissue").permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class)
                 .build();
