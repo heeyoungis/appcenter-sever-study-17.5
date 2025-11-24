@@ -27,15 +27,22 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity, JwtTokenProvider jwtTokenProvider) throws Exception {
         return httpSecurity
                 .csrf(CsrfConfigurer::disable)
+                .cors(cors -> cors.configurationSource(configurationSource()))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/users/sign-in",
-                                         "/users/sign-in/**",
-                                         "/users/sign-up",
-                                         "/users/reissue").permitAll()
-                        .anyRequest().authenticated())
+                            .requestMatchers(
+                                    "/swagger-ui/**",
+                                    "/v3/api-docs/**",
+                                    "/webjars/**"
+                            ).permitAll()
+                            .anyRequest().permitAll())
+//                        .requestMatchers("/users/sign-in",
+//                                         "/users/sign-in/**",
+//                                         "/users/sign-up",
+//                                         "/users/reissue").permitAll()
+//                        .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -46,7 +53,7 @@ public class SecurityConfig {
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.setAllowedOriginPatterns(List.of("http://localhost:5173"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
         corsConfiguration.setExposedHeaders(List.of("Authorization", "Refresh-Token"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
         corsConfiguration.setAllowedMethods(List.of("*"));
