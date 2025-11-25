@@ -28,7 +28,7 @@ public class SwaggerConfig {
                                 .bearerFormat("JWT"));
 
         Server devServer = new Server();
-        devServer.url("http://localhost:8080");
+        devServer.url("http://54.180.104.165:8080");
         devServer.description("Dev Server");
 
         return new OpenAPI()
