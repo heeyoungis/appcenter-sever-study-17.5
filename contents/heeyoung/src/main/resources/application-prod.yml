@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://heeyoung-database:3306/heeyoungdb?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://database-1.c5waoswosxs9.ap-northeast-2.rds.amazonaws.com:3306/HEEYOUNG_DB?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: 0910
+    password: Dpwl0910!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
