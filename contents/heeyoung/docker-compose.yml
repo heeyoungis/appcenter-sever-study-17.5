@@ -1,31 +1,15 @@
+version: '3.8'
+
 services:
   heeyoung-server:
     container_name: heeyoung-server
-    networks:
-      - heeyoung-network
     image: ${DOCKERHUB_USERNAME}/heeyoung-server:latest
     ports:
-      - "8001:8080"
+      - "8080:8080"
+    restart: always
     environment:
-      - TZ=Asia/Seoul
-      - SPRING_DATASOURCE_URL=jdbc:mysql://heeyoung-database:3306/heeyoungdb
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=0910
-    depends_on:
-      - heeyoung-database
-
-  heeyoung-database:
-    container_name: heeyoung-database
-    networks:
-      - heeyoung-network
-    image: mysql:8
-    environment:
-      - MYSQL_ROOT_PASSWORD=0910
-      - MYSQL_DATABASE=heeyoungdb
-      - TZ=Asia/Seoul
-    ports:
-      - "3307:3306"
-
-networks:
-  heeyoung-network:
-    driver: bridge
+      TZ: Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mysql://database-1.c5waoswosxs9.ap-northeast-2.rds.amazonaws.com:3306/HEEYOUNG_DB?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Dpwl0910!
+      JWT_SECRET: 363a69e9501d9e1a1f8f475e3d21b8480048c29e583cd036dee05310404e2261
